@@ -77,13 +77,15 @@ cloudflare_api_token = "your-cloudflare-token"
 cloudflare_zone_id = "your-zone-id"
 ```
 
-### Initialize Terraform
+### Initialize
 
 ```bash
 terraform init
 ```
 
 ### Plan
+
+Verify conditions before deployment
 
 ```bash
 terraform plan

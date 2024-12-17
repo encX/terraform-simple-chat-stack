@@ -4,7 +4,7 @@ resource "google_sql_database_instance" "pg" {
   database_version = "POSTGRES_17"
   root_password    = random_password.db_password.result
 
-  # depends_on = [google_service_networking_connection.vpc_conn]
+  depends_on = [google_service_networking_connection.vpc_psc]
 
   settings {
     tier              = "db-custom-4-16384"

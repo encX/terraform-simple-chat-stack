@@ -27,13 +27,10 @@ resource "google_container_cluster" "gke" {
     metadata = {
       disable-legacy-endpoints = "true"
     }
-    shielded_instance_config {
-      enable_integrity_monitoring = true
-    }
   }
 
   logging_config {
-    enable_components = ["SYSTEM_COMPONENTS", "WORKLOADS"]
+    enable_components = ["WORKLOADS"]
   }
 
   monitoring_config {
@@ -48,9 +45,6 @@ resource "google_container_cluster" "gke" {
       "CADVISOR",
       "KUBELET"
     ]
-    managed_prometheus {
-      enabled = true
-    }
   }
 
   control_plane_endpoints_config {
@@ -65,9 +59,15 @@ resource "google_container_cluster" "gke" {
     }
   }
 
-  # private_cluster_config {
-  #   enable_private_nodes = true
-  # }
+  private_cluster_config {
+    enable_private_nodes = true
+  }
+
+  default_snat_status {
+    disabled = true
+  }
+
+  networking_mode = "VPC_NATIVE"
 
   network    = google_compute_network.vpc.name
   subnetwork = google_compute_subnetwork.subnet.name

@@ -97,5 +97,3 @@ resource "helm_release" "openwebui" {
     })
   ]
 }
-
-# create 1 pvc for everything and set the path for each deployment

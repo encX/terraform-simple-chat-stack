@@ -53,7 +53,7 @@ resource "kubernetes_config_map" "litellm_config" {
 }
 
 resource "kubernetes_deployment" "litellm_deployment" {
-  depends_on = [ kubernetes_service.redis_service ]
+  depends_on = [kubernetes_service.redis_service]
   metadata {
     name      = "litellm"
     namespace = kubernetes_namespace.chat-stack.metadata[0].name
@@ -129,14 +129,14 @@ resource "kubernetes_deployment" "litellm_deployment" {
 
           resources {
             requests = {
-              memory = "1.5Gi"
-              cpu    = "1"
+              memory            = "1.5Gi"
+              cpu               = "1"
               ephemeral-storage = "100Mi"
             }
 
             limits = {
-              memory = "2Gi"
-              cpu    = "2"
+              memory            = "2Gi"
+              cpu               = "2"
               ephemeral-storage = "200Mi"
             }
           }
@@ -204,8 +204,8 @@ resource "kubernetes_service" "litellm_service" {
     }
 
     port {
-      protocol   = "TCP"
-      port       = 4000
+      protocol    = "TCP"
+      port        = 4000
       target_port = 4000
     }
 
@@ -266,14 +266,14 @@ resource "kubernetes_deployment" "redis_deployment" {
 
           resources {
             limits = {
-              memory            = "512Mi"
-              cpu               = "500m"
+              memory              = "512Mi"
+              cpu                 = "500m"
               "ephemeral-storage" = "200Mi"
             }
 
             requests = {
-              memory            = "256Mi"
-              cpu               = "250m"
+              memory              = "256Mi"
+              cpu                 = "250m"
               "ephemeral-storage" = "100Mi"
             }
           }
@@ -332,4 +332,5 @@ locals {
 
 output "litellm_master_key" {
   value     = local.litellm_master_key
+  sensitive = true
 }
